@@ -11,10 +11,12 @@ extents = Vector2( 58.7377, 53.9702 )
 script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 117.0
-margin_bottom = 107.0
+margin_left = -58.7877
+margin_top = -53.6239
+margin_right = 58.2123
+margin_bottom = 53.3761
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 58.5596, 53.7066 )
+position = Vector2( -0.228104, 0.0826683 )
 shape = SubResource( 1 )
 

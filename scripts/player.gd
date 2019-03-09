@@ -1,6 +1,7 @@
 extends Area2D
 
 var entered_body = null
+var hidden = false
 
 func _ready():
     pass
@@ -17,10 +18,21 @@ func _process(delta):
     if Input.is_action_pressed("player_right"):
         vel.x = 1
     
+    if entered_body != null and entered_body.get_ref().controlled:
+        entered_body.get_ref().position += vel
     position += vel
     
     if Input.is_action_just_pressed("action") and entered_body != null:
+        set_global_position(entered_body.get_ref().get_global_position())
+        toggle_hidden()
         entered_body.get_ref().toggle_control()
+
+func toggle_hidden():
+    hidden = not hidden
+    if hidden:
+        hide()
+    else:
+        show()
 
 func _on_player_area_entered(obj):
     if obj.is_in_group("movable"):
