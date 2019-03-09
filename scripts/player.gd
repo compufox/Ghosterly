@@ -37,12 +37,14 @@ func toggle_hidden():
     else:
         show()
 
-func _on_player_area_entered(obj):
+func _on_player_body_entered(obj):
     if obj.is_in_group("movable"):
         entered_body = weakref(obj)
+        obj.highlight()
 
 
-func _on_player_area_exited(obj):
+func _on_player_body_exited(obj):
     if entered_body != null and entered_body.get_ref() == obj:
-        entered_body.get_ref().controlled = false
+        obj.controlled = false
+        obj.unhighlight()
         entered_body = null
