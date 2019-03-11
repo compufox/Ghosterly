@@ -1,6 +1,7 @@
 extends Area2D
 
 export(float) var possession_speed = 3.0
+
 var entered_body = null
 var hidden = false
 
@@ -26,7 +27,6 @@ func _process(delta):
         position += vel
     
     if Input.is_action_just_pressed("action") and entered_body != null:
-        set_global_position(entered_body.get_ref().get_global_position())
         toggle_hidden()
         entered_body.get_ref().toggle_control()
 

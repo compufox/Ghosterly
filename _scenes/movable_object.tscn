@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/moveable_object.gd" type="Script" id=1]
+[ext_resource path="res://assets/highlighted.tres" type="Material" id=2]
+
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 58.7377, 53.9702 )
+
+[node name="movable_obj" type="KinematicBody2D" groups=[
+"movable",
+]]
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -58.7877
+margin_top = -53.6239
+margin_right = 58.2123
+margin_bottom = 53.3761
+color = Color( 1, 0.0745098, 0.0745098, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.228104, 0.0826683 )
+shape = SubResource( 1 )
+
+[node name="highlight" type="ColorRect" parent="."]
+visible = false
+material = ExtResource( 2 )
+margin_left = -58.7877
+margin_top = -53.6239
+margin_right = 58.2123
+margin_bottom = 53.3761
+color = Color( 1, 1, 1, 0 )
+

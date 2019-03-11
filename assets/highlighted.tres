@@ -1,0 +1,49 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[sub_resource type="VisualShaderNodeColorConstant" id=1]
+output_port_for_preview = 1
+constant = Color( 0.784314, 0.878431, 0.317647, 0.654902 )
+
+[sub_resource type="VisualShader" id=2]
+code = "shader_type canvas_item;
+render_mode blend_add, unshaded;
+
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Color:2
+	vec3 n_out2p0;
+	float n_out2p1;
+	n_out2p0 = vec3(0.784314,0.878431,0.317647);
+	n_out2p1 = 0.654902;
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+	COLOR.a = n_out2p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( 7, 269 )
+mode = 1
+modes/blend = 1
+flags/light_only = false
+flags/unshaded = true
+nodes/fragment/0/position = Vector2( 400, 340 )
+nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/2/position = Vector2( 140, 340 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0, 2, 1, 0, 1 )
+
+[resource]
+shader = SubResource( 2 )
+

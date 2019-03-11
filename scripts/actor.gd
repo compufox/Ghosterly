@@ -1,24 +1,28 @@
-extends KinematicBody2D
+extends Node2D
 
-onready var color = $ColorRect
-export(Color) var controlColor
+var speed = 150
+var nav setget set_nav
+var nav_path = []
+export(NodePath) var goal_node 
 
-var highlighted = false
-var controlled  = false
+func set_nav(new_nav):
+    nav = new_nav
+    update_path()
 
-func _process(delta):
-    if controlled and color.color != controlColor:
-        color.color = controlColor
-    elif not controlled and not highlighted:
-        color.color = Color.white
+func update_path():
+    nav_path = nav.get_simple_path(get_position(),
+                                   get_node(goal_node).get_position(),
+                                   false)
 
-func toggle_control():
-    controlled = not controlled
-
-func highlight():
-    color.color = Color.yellow
-    highlighted = true
-
-func unhighlight():
-    color.color = Color.white
-    highlighted = false
+func _physics_process(delta):
+    if nav_path.size() > 1:
+        var d = get_position().distance_to(nav_path[0])
+        
+        if d > 2:
+            set_position(get_position().linear_interpolate(nav_path[0],
+                                                           (speed * delta)/d))
+        else:
+            nav_path.remove(0)
+    else:
+        pass
+        # this means we've reached our point
