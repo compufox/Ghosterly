@@ -5,6 +5,8 @@ export(float) var possession_speed = 3.0
 var entered_body = null
 var hidden = false
 
+signal check_path
+
 func _ready():
     pass
 
@@ -29,6 +31,7 @@ func _process(delta):
     if Input.is_action_just_pressed("action") and entered_body != null:
         toggle_hidden()
         entered_body.get_ref().toggle_control()
+        emit_signal("check_path")
 
 func toggle_hidden():
     hidden = not hidden

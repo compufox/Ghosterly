@@ -1,28 +1,37 @@
 extends Node2D
 
-var speed = 150
-var nav setget set_nav
-var nav_path = []
-export(NodePath) var goal_node 
+# Speed at which the sidekick will move
+const MOVEMENT_SPEED = 96
 
-func set_nav(new_nav):
-    nav = new_nav
-    update_path()
+# How close the sidekick must be to a point in the
+# path before moving on to the next one
+const POINT_RADIUS = 5
 
-func update_path():
-    nav_path = nav.get_simple_path(get_position(),
-                                   get_node(goal_node).get_position(),
-                                   false)
+# Path that the sidekick must follow - undefined by default
+var path
 
-func _physics_process(delta):
-    if nav_path.size() > 1:
-        var d = get_position().distance_to(nav_path[0])
-        
-        if d > 2:
-            set_position(get_position().linear_interpolate(nav_path[0],
-                                                           (speed * delta)/d))
-        else:
-            nav_path.remove(0)
-    else:
-        pass
-        # this means we've reached our point
+
+# Performed on each step
+func _process(delta):
+
+	# Only do stuff if we have a current path
+	if path:
+
+		# The next point is the first member of the path array
+		var target = path[0]
+
+		# Determine direction in which sidekick must move
+		var direction = (target - position).normalized()
+
+		# Move sidekick
+		position += direction * MOVEMENT_SPEED * delta
+
+		# If we have reached the point...
+		if position.distance_to(target) < POINT_RADIUS:
+
+			# Remove first path point
+			path.remove(0)
+
+			# If we have no points left, remove path
+			if path.size() == 0:
+                path = null
